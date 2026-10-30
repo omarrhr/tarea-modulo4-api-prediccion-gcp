@@ -1,0 +1,6 @@
+# Nunca subir credenciales
+*.json
+__pycache__/
+*.pyc
+.venv/
+capturas/
