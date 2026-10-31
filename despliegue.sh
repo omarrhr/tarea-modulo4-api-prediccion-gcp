@@ -11,6 +11,13 @@ SERVICIO=api-prediccion-casas
 SA=sa-api-prediccion
 IMAGEN="$REGION-docker.pkg.dev/$PROJECT/$REPO/$SERVICIO"
 
+# En Windows `python` suele ser el alias de la Microsoft Store, que no sirve.
+PY=$(command -v python3 || command -v python || echo "${CLOUDSDK_PYTHON:-python}")
+if ! "$PY" -c "import sys" 2>/dev/null; then
+  echo "No encuentro un Python utilizable. Define CLOUDSDK_PYTHON y reintenta."
+  exit 1
+fi
+
 echo "== 1. Habilitar las APIs necesarias =="
 gcloud services enable \
   run.googleapis.com \
@@ -46,8 +53,8 @@ done
 
 # Acceso a datos, a nivel de dataset. `bq add-iam-policy-binding` solo admite
 # tablas y vistas, asi que para datasets se parchea su lista de accesos.
-python permisos/conceder_dataset.py "$FUENTE:hist_table"      "$SA_EMAIL" READER
-python permisos/conceder_dataset.py "$PROJECT:ds_tarea_api"   "$SA_EMAIL" WRITER
+"$PY" permisos/conceder_dataset.py "$FUENTE:hist_table"      "$SA_EMAIL" READER
+"$PY" permisos/conceder_dataset.py "$PROJECT:ds_tarea_api"   "$SA_EMAIL" WRITER
 
 echo "== 6. Construir la imagen con Cloud Build =="
 gcloud builds submit --tag "$IMAGEN:latest" --project "$PROJECT"

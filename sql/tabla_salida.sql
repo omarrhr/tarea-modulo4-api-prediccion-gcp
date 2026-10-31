@@ -1,8 +1,10 @@
 -- Dataset y tabla de salida de la API.
 -- Se ejecuta una sola vez, antes del primer despliegue.
 
+-- La ubicacion es US, la misma que hist_table y los demas datasets del curso.
+-- Si no coincide, BigQuery rechaza la consulta por region inconsistente.
 CREATE SCHEMA IF NOT EXISTS `dp-mlops17-ohuaman-pf-proc.ds_tarea_api`
-OPTIONS (location = 'us-central1');
+OPTIONS (location = 'US');
 
 CREATE TABLE IF NOT EXISTS
   `dp-mlops17-ohuaman-pf-proc.ds_tarea_api.predicciones_api`
