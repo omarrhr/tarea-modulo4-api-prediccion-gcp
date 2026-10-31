@@ -1,13 +1,13 @@
 -- Dataset y tabla de salida de la API.
 -- Se ejecuta una sola vez, antes del primer despliegue.
 
--- La ubicacion es US, la misma que hist_table y los demas datasets del curso.
+-- La ubicacion es US, la misma que el dataset de entrada.
 -- Si no coincide, BigQuery rechaza la consulta por region inconsistente.
-CREATE SCHEMA IF NOT EXISTS `dp-mlops17-ohuaman-pf-proc.ds_tarea_api`
+CREATE SCHEMA IF NOT EXISTS `dp-mlops17-ohuaman-tarea-api.ds_salida`
 OPTIONS (location = 'US');
 
 CREATE TABLE IF NOT EXISTS
-  `dp-mlops17-ohuaman-pf-proc.ds_tarea_api.predicciones_api`
+  `dp-mlops17-ohuaman-tarea-api.ds_salida.predicciones_api`
 (
   prediction      INT64     OPTIONS (description = 'Prediccion truncada a entero'),
   prediction_log  FLOAT64   OPTIONS (description = 'Salida cruda del modelo, en logaritmo'),

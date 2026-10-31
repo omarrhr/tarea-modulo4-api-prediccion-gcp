@@ -19,15 +19,15 @@ from joblib import load
 
 # Configuracion. El enunciado permite valores fijos en el codigo, pero por
 # variables de entorno la misma imagen sirve para cualquier entorno.
-PROJECT = os.getenv("PROJECT", "dp-mlops17-ohuaman-pf-proc")
+PROJECT = os.getenv("PROJECT", "dp-mlops17-ohuaman-tarea-api")
 INPUT_TABLE = os.getenv(
-    "INPUT_TABLE", "dp-mlops17-ohuaman-pf-fuente.hist_table.input_data"
+    "INPUT_TABLE", "dp-mlops17-ohuaman-tarea-api.ds_entrada.input_data"
 )
 FEATURES_TABLE = os.getenv(
-    "FEATURES_TABLE", "dp-mlops17-ohuaman-pf-fuente.hist_table.selected_features"
+    "FEATURES_TABLE", "dp-mlops17-ohuaman-tarea-api.ds_entrada.selected_features"
 )
 OUTPUT_TABLE = os.getenv(
-    "OUTPUT_TABLE", "dp-mlops17-ohuaman-pf-proc.ds_tarea_api.predicciones_api"
+    "OUTPUT_TABLE", "dp-mlops17-ohuaman-tarea-api.ds_salida.predicciones_api"
 )
 MODEL_PATH = os.getenv("MODEL_PATH", "model/linear_regression.joblib")
 

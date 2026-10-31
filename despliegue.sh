@@ -3,8 +3,8 @@
 # Ejecutar desde la raiz del proyecto: bash despliegue.sh
 set -e
 
-PROJECT=dp-mlops17-ohuaman-pf-proc
-FUENTE=dp-mlops17-ohuaman-pf-fuente
+PROJECT=dp-mlops17-ohuaman-tarea-api
+FUENTE=dp-mlops17-ohuaman-tarea-api
 REGION=us-central1
 REPO=api-prediccion
 SERVICIO=api-prediccion-casas
@@ -53,8 +53,8 @@ done
 
 # Acceso a datos, a nivel de dataset. `bq add-iam-policy-binding` solo admite
 # tablas y vistas, asi que para datasets se parchea su lista de accesos.
-"$PY" permisos/conceder_dataset.py "$FUENTE:hist_table"      "$SA_EMAIL" READER
-"$PY" permisos/conceder_dataset.py "$PROJECT:ds_tarea_api"   "$SA_EMAIL" WRITER
+"$PY" permisos/conceder_dataset.py "$PROJECT:ds_entrada"      "$SA_EMAIL" READER
+"$PY" permisos/conceder_dataset.py "$PROJECT:ds_salida"   "$SA_EMAIL" WRITER
 
 echo "== 6. Construir la imagen con Cloud Build =="
 gcloud builds submit --tag "$IMAGEN:latest" --project "$PROJECT"
@@ -70,7 +70,7 @@ gcloud run deploy "$SERVICIO" \
   --cpu 1 \
   --min-instances 0 \
   --max-instances 2 \
-  --set-env-vars "PROJECT=$PROJECT,INPUT_TABLE=$FUENTE.hist_table.input_data,FEATURES_TABLE=$FUENTE.hist_table.selected_features,OUTPUT_TABLE=$PROJECT.ds_tarea_api.predicciones_api,MODEL_PATH=model/linear_regression.joblib" \
+  --set-env-vars "PROJECT=$PROJECT,INPUT_TABLE=$PROJECT.ds_entrada.input_data,FEATURES_TABLE=$PROJECT.ds_entrada.selected_features,OUTPUT_TABLE=$PROJECT.ds_salida.predicciones_api,MODEL_PATH=model/linear_regression.joblib" \
   --project "$PROJECT"
 
 URL=$(gcloud run services describe "$SERVICIO" --region "$REGION" \

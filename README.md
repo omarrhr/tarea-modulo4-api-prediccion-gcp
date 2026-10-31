@@ -35,13 +35,13 @@ crudo y el precio reconstruido en dólares.
 
 | | Tabla |
 |---|---|
-| **Entrada** | `dp-mlops17-ohuaman-pf-fuente.hist_table.input_data` |
-| **Variables del modelo** | `dp-mlops17-ohuaman-pf-fuente.hist_table.selected_features` |
-| **Salida** | `dp-mlops17-ohuaman-pf-proc.ds_tarea_api.predicciones_api` |
+| **Entrada** | `dp-mlops17-ohuaman-tarea-api.ds_entrada.input_data` |
+| **Variables del modelo** | `dp-mlops17-ohuaman-tarea-api.ds_entrada.selected_features` |
+| **Salida** | `dp-mlops17-ohuaman-tarea-api.ds_salida.predicciones_api` |
 
-La tabla de salida vive en un dataset propio, `ds_tarea_api`, para no mezclar
-los resultados de esta asignación con los del proyecto final. El SQL que la
-crea está en `sql/tabla_salida.sql`.
+Todo vive en un **proyecto de GCP propio**, `dp-mlops17-ohuaman-tarea-api`,
+aislado de los demás trabajos del curso. El SQL que crea el dataset y la tabla
+de salida está en `sql/tabla_salida.sql`.
 
 ---
 
